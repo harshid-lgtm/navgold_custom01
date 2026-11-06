@@ -31,10 +31,10 @@ bench --site your-site.local migrate
 3. Install `navgold_custom01` on the target site.
 4. Run a site migration if it is not run automatically.
 
-The calculator is then available at:
+The calculator is then available from the Desk search, or at:
 
 ```text
-/desk/navgold-custom/amazon-fba-profit-calculator
+/app/amazon-fba-profit-calculator
 ```
 
 > This is a standalone test app. Do not install it alongside another app that
