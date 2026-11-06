@@ -1,0 +1,281 @@
+{
+	"actions": [],
+	"allow_rename": 0,
+	"creation": "2026-11-05 20:55:00.000000",
+	"doctype": "DocType",
+	"editable_grid": 1,
+	"engine": "InnoDB",
+	"field_order": [
+		"section_break_fulfilment",
+		"fulfilment_method",
+		"section_break_inputs",
+		"currency_note",
+		"currency",
+		"buy_price",
+		"shipping_to_amazon",
+		"other_costs",
+		"column_break_sell",
+		"sale_price",
+		"referral_fee_pct",
+		"fba_fulfilment_fee",
+		"merchant_shipping_cost",
+		"section_break_results",
+		"profit_per_unit",
+		"margin",
+		"referral_fee",
+		"column_break_results",
+		"roi",
+		"total_costs",
+		"breakeven_sale_price",
+		"section_break_target_margin",
+		"target_margin_pct",
+		"column_break_target_margin",
+		"target_margin_sale_price",
+		"section_break_formulas",
+		"formula_reference"
+	],
+	"fields": [
+		{
+			"fieldname": "currency_note",
+			"fieldtype": "HTML",
+			"label": "Currency Note",
+			"options": "<div class=\"text-muted mb-3\"><strong>All amounts are in pounds sterling (GBP, £).</strong> No ERPNext data is read or written.</div>"
+		},
+		{
+			"default": "GBP",
+			"fieldname": "currency",
+			"fieldtype": "Data",
+			"hidden": 1,
+			"label": "Currency",
+			"no_copy": 1,
+			"read_only": 1
+		},
+		{
+			"description": "Choose how orders are fulfilled. This controls which fulfilment cost field is used below.",
+			"fieldname": "section_break_fulfilment",
+			"fieldtype": "Section Break",
+			"label": "Fulfilment"
+		},
+		{
+			"default": "FBA",
+			"description": "FBA uses Amazon's fulfilment fee. Merchant uses your own shipping cost.",
+			"fieldname": "fulfilment_method",
+			"fieldtype": "Select",
+			"label": "Fulfilment method",
+			"options": "FBA\nMerchant",
+			"reqd": 1
+		},
+		{
+			"fieldname": "section_break_inputs",
+			"fieldtype": "Section Break",
+			"label": "Buying and selling"
+		},
+		{
+			"default": "10",
+			"description": "What you pay for one unit, before shipping and prep.",
+			"fieldname": "buy_price",
+			"fieldtype": "Currency",
+			"label": "Buy price (£)",
+			"non_negative": 1,
+			"options": "currency",
+			"precision": 2,
+			"reqd": 1
+		},
+		{
+			"default": "0.50",
+			"description": "Inbound freight, prep and handling to get one unit to Amazon. Set to 0 for Merchant fulfilment if you do not ship to Amazon.",
+			"fieldname": "shipping_to_amazon",
+			"fieldtype": "Currency",
+			"label": "Shipping to Amazon (£)",
+			"non_negative": 1,
+			"options": "currency",
+			"precision": 2
+		},
+		{
+			"default": "0",
+			"description": "Labels, polybags, inspection, duty or any other per-unit cost.",
+			"fieldname": "other_costs",
+			"fieldtype": "Currency",
+			"label": "Other costs (£)",
+			"non_negative": 1,
+			"options": "currency",
+			"precision": 2
+		},
+		{
+			"fieldname": "column_break_sell",
+			"fieldtype": "Column Break"
+		},
+		{
+			"default": "25",
+			"description": "The per-unit price the customer pays on Amazon.",
+			"fieldname": "sale_price",
+			"fieldtype": "Currency",
+			"label": "Sale price (£)",
+			"non_negative": 1,
+			"options": "currency",
+			"precision": 2,
+			"reqd": 1
+		},
+		{
+			"default": "15",
+			"description": "Amazon referral fee as a percentage of the sale price. 15% applies to most categories.",
+			"fieldname": "referral_fee_pct",
+			"fieldtype": "Percent",
+			"label": "Referral fee (%)",
+			"non_negative": 1,
+			"precision": 2,
+			"reqd": 1
+		},
+		{
+			"default": "3.50",
+			"depends_on": "eval:doc.fulfilment_method != 'Merchant'",
+			"description": "Amazon's FBA fulfilment fee for the product's size and weight tier. Used when Fulfilment method is FBA.",
+			"fieldname": "fba_fulfilment_fee",
+			"fieldtype": "Currency",
+			"label": "FBA fulfilment fee (£)",
+			"mandatory_depends_on": "eval:doc.fulfilment_method != 'Merchant'",
+			"non_negative": 1,
+			"options": "currency",
+			"precision": 2
+		},
+		{
+			"default": "0",
+			"depends_on": "eval:doc.fulfilment_method == 'Merchant'",
+			"description": "What it costs you to ship one unit to the customer. Used when Fulfilment method is Merchant.",
+			"fieldname": "merchant_shipping_cost",
+			"fieldtype": "Currency",
+			"label": "Shipping Cost (£)",
+			"mandatory_depends_on": "eval:doc.fulfilment_method == 'Merchant'",
+			"non_negative": 1,
+			"options": "currency",
+			"precision": 2
+		},
+		{
+			"fieldname": "section_break_results",
+			"fieldtype": "Section Break",
+			"label": "Results"
+		},
+		{
+			"description": "Sale price minus the referral fee, selected fulfilment cost, buy price, shipping and other costs.",
+			"fieldname": "profit_per_unit",
+			"fieldtype": "Currency",
+			"label": "Profit per unit (£)",
+			"options": "currency",
+			"precision": 2,
+			"read_only": 1
+		},
+		{
+			"description": "Profit divided by the sale price.",
+			"fieldname": "margin",
+			"fieldtype": "Percent",
+			"label": "Margin (%)",
+			"precision": 1,
+			"read_only": 1
+		},
+		{
+			"description": "Sale price multiplied by the referral fee percentage.",
+			"fieldname": "referral_fee",
+			"fieldtype": "Currency",
+			"label": "Referral fee (£)",
+			"options": "currency",
+			"precision": 2,
+			"read_only": 1
+		},
+		{
+			"fieldname": "column_break_results",
+			"fieldtype": "Column Break"
+		},
+		{
+			"description": "Profit divided by the buy price, shipping and other costs.",
+			"fieldname": "roi",
+			"fieldtype": "Percent",
+			"label": "ROI (%)",
+			"precision": 1,
+			"read_only": 1
+		},
+		{
+			"description": "Referral fee plus the selected fulfilment cost, buy price, shipping and other costs.",
+			"fieldname": "total_costs",
+			"fieldtype": "Currency",
+			"label": "Total costs (£)",
+			"options": "currency",
+			"precision": 2,
+			"read_only": 1
+		},
+		{
+			"description": "The sale price at which profit is £0.",
+			"fieldname": "breakeven_sale_price",
+			"fieldtype": "Currency",
+			"label": "Breakeven sale price (£)",
+			"options": "currency",
+			"precision": 2,
+			"read_only": 1
+		},
+		{
+			"description": "Work backwards from the margin you want. The buy price, fulfilment cost, shipping and other costs above are kept exactly as entered.",
+			"fieldname": "section_break_target_margin",
+			"fieldtype": "Section Break",
+			"label": "Target margin"
+		},
+		{
+			"default": "30",
+			"description": "The margin you want to achieve. Enter 30 for 30%.",
+			"fieldname": "target_margin_pct",
+			"fieldtype": "Percent",
+			"label": "Target margin (%)",
+			"non_negative": 1,
+			"precision": 2
+		},
+		{
+			"fieldname": "column_break_target_margin",
+			"fieldtype": "Column Break"
+		},
+		{
+			"description": "Sale price needed to achieve the target margin, using the buy price, fulfilment cost, shipping and other costs above.",
+			"fieldname": "target_margin_sale_price",
+			"fieldtype": "Currency",
+			"label": "Sale price if Margin 30% (£)",
+			"options": "currency",
+			"precision": 2,
+			"read_only": 1
+		},
+		{
+			"collapsible": 1,
+			"fieldname": "section_break_formulas",
+			"fieldtype": "Section Break",
+			"label": "Formulas"
+		},
+		{
+			"fieldname": "formula_reference",
+			"fieldtype": "HTML",
+			"label": "Formula Reference",
+			"options": "<div class=\"small text-muted\"><p><strong>Profit per unit</strong> = sale price − referral fee − fulfilment cost − buy price − shipping to Amazon − other costs</p><p><strong>Fulfilment cost</strong> = FBA fulfilment fee when Fulfilment method is FBA, or Shipping Cost when it is Merchant</p><p><strong>Referral fee</strong> = sale price × referral fee %</p><p><strong>ROI</strong> = profit ÷ (buy price + shipping to Amazon + other costs)</p><p><strong>Margin</strong> = profit ÷ sale price</p><p><strong>Breakeven sale price</strong> = (buy price + fulfilment cost + shipping to Amazon + other costs) ÷ (1 − referral fee %)</p><p><strong>Sale price if Margin M%</strong> = (buy price + fulfilment cost + shipping to Amazon + other costs) ÷ (1 − referral fee % − M%)</p><p class=\"mb-0\">A 15% referral fee is entered as 15, not 0.15. Percentages are calculated on the unrounded inputs, and money is displayed to two decimal places.</p></div>"
+		}
+	],
+	"index_web_pages_for_search": 0,
+	"issingle": 1,
+	"links": [],
+	"modified": "2026-11-06 10:05:00.000000",
+	"modified_by": "Administrator",
+	"module": "Navgold Custom01",
+	"name": "Amazon FBA Profit Calculator",
+	"owner": "Administrator",
+	"permissions": [
+		{
+			"create": 1,
+			"delete": 1,
+			"email": 1,
+			"export": 1,
+			"print": 1,
+			"read": 1,
+			"report": 1,
+			"role": "System Manager",
+			"share": 1,
+			"write": 1
+		}
+	],
+	"sort_field": "modified",
+	"sort_order": "DESC",
+	"states": [],
+	"track_changes": 0
+}
